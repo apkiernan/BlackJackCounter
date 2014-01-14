@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title> BlackJack Counter </title>
+<link rel="stylesheet" href="css/bjstyle.css"/>
+<script type="text/javascript" src="js/jquery 2.0.3.min.js"></script>
+<script type="text/javascript" src="js/blackjack.js"></script>
+
+</head>
+<body>
+  <div id="container">
+    <h1 id="title">BlackJack Counter!</h1>
+    <button  onClick="getShoe()">Press to begin</button>
+    <button onClick="shuffle()">Shuffle Up!</button>
+    <button onClick="deal()">Deal!</button>
+    <div id="playingArea">
+      <div id="playerHand">
+        <h3>Your Hand</h3>
+        <div class="cardArea">
+        </div>
+        <button class="hit" onClick="hit()")>Hit</button>
+        <button class="stand" onClick="stand()")>Stand</button>
+      </div>
+      <div id="dealerHand">
+      <h3> Dealer's Hand</h3>
+      <div class="cardArea"></div>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+  </div>
+</body>
+</html>
