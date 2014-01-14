@@ -37,6 +37,14 @@ function deal(){
 }
 function hit(){
   playerHand.push(shoe.shift());
+  playerCount = sum(playerHand);
   $("#playerHand .cardArea").text(playerCount);
 }
-
+function sum(x){
+  var y, z = 0;
+  for (var i = 0; i<x.length; i++){
+    y = parseInt(playerHand[i]);
+    z += y;
+  }
+  return z;
+}
