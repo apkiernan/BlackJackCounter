@@ -30,14 +30,22 @@ function shuffle(){
 }
 function deal(){
   playerHand = [];
+  dealerHand = [];
   playerHand.push(shoe.shift());
+  dealerHand.push(shoe.shift());
   playerHand.push(shoe.shift());
   playerCount = playerHand[0]+playerHand[1];
+  dealerCount = dealerHand[0];
   $("#playerHand .cardArea").text(playerCount);
+  $("#dealerHand .cardArea").text(dealerCount);
+  $("#bust","#playerLose","#playerWin").css({"display": "none"})
 }
 function hit(){
   playerHand.push(shoe.shift());
   playerCount = sum(playerHand);
+  if(playerCount > 21){
+    $("#bust").css({"display": "block"});
+  }
   $("#playerHand .cardArea").text(playerCount);
 }
 function sum(x){
@@ -47,4 +55,25 @@ function sum(x){
     z += y;
   }
   return z;
+}
+function dealerTurn(){
+  dealerHand.push(shoe.shift());
+  dealerCount = sum(dealerHand);
+  while (dealerCount < 17){
+    if (dealerCount > 21){
+      $("#playerWin").css({"display": "block"});
+    } else if(dealerCount < 17){
+      dealerHand.push(shoe.shift());
+      dealerCount = sum(dealerHand);
+    } else if(dealerCount => 17 && dealerCount <= 21){
+      compareScore();
+    }
+  }
+}
+function compareScore(playerCount, dealerCount){
+  if(playerCount > dealerCount){
+    $("#playerWin").css({"display": "block"});
+  } else {
+    $("#playerLose").css({"display": "block"})
+  }
 }

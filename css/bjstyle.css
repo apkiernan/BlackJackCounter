@@ -21,12 +21,25 @@ body {
 h1 {
   text-align: center;
 }
+#playingArea{
+  position: relative;
+
+}
 .cardArea{
   width: 20%;
   background: #FFF;
   height: 100px;
 }
-#playerHand, 
-#dealerHand {
-  
+
+#bust,
+#playerWin,
+#playerLose{
+  display: none;
+}
+#bust,
+#playerLose{
+  color: red;
+}
+#playerWin{
+  color: white;
 }

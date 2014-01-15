@@ -10,20 +10,24 @@
 <body>
   <div id="container">
     <h1 id="title">BlackJack Counter!</h1>
-    <button  onClick="getShoe()">Press to begin</button>
-    <button onClick="shuffle()">Shuffle Up!</button>
-    <button onClick="deal()">Deal!</button>
+    <nav>
+      <button  onClick="getShoe()">Press to begin</button>
+      <button onClick="shuffle()">Shuffle Up!</button>
+      <button onClick="deal()">Deal!</button>
+    </nav>
     <div id="playingArea">
       <div id="playerHand">
         <h3>Your Hand</h3>
-        <div class="cardArea">
-        </div>
+        <h1 id="bust">BUST!</h1>
+        <div class="cardArea"></div>
         <button class="hit" onClick="hit()")>Hit</button>
-        <button class="stand" onClick="stand()")>Stand</button>
+        <button class="stand" onClick="dealerTurn()")>Stand</button>
       </div>
       <div id="dealerHand">
-      <h3> Dealer's Hand</h3>
-      <div class="cardArea"></div>
+        <h3> Dealer's Hand</h3>
+        <h1 id="playerWin">You Win!</h1>
+        <h1 id="playerLose">Dealer Wins</h1>
+        <div class="cardArea"></div>
       </div>
     </div>
     
