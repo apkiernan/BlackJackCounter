@@ -1,45 +1,16 @@
-/*body {
-  background: #0B5C04;
-  margin: 0px;
-  padding: 0px;
+body {
   width: 100%;
 }
-#container {
-  margin: 1% auto;
-  border: 2px solid black;
-  width: 75%
+#container{
+  width: 80%;
+  border: 2px solid white;
+  background: #032107;
+  margin: 0px auto;
+  color: #FFF;
 }
-#container button {
-  height: 50px;
-  width:  100px;
-  margin: auto;
+#nav{
+  border: 5px solid white;
 }
-#title {
-  color: gold;
-  margin: auto;
-}
-h1 {
+#title{
   text-align: center;
 }
-#playingArea{
-  position: relative;
-
-}
-.cardArea{
-  width: 20%;
-  background: #FFF;
-  height: 100px;
-}
-
-#bust,
-#playerWin,
-#playerLose{
-  display: none;
-}
-#bust,
-#playerLose{
-  color: red;
-}
-#playerWin{
-  color: white;
-}*/

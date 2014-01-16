@@ -65,21 +65,25 @@ function dealerTurn(){
   dealerHand.push(shoe.shift());
   dealerCount += dealerHand[dealerHand.length - 1];
   $("#dealerHand .cardArea").text(dealerCount);
-  /*while (dealerCount < 17){
+  while (dealerCount < 17){
+    dealerHand.push(shoe.shift());
+    dealerCount += dealerHand[dealerHand.length - 1];
+    $("#dealerHand .cardArea").text(dealerCount);
     if (dealerCount > 21){
-      $("#playerWin").css({"display": "block"});
-    } else if(dealerCount < 17){
-      dealerHand.push(shoe.shift());
-      dealerCount = sum(dealerHand);
+      console.log("Dealer breaks, player wins!")
     } else if(dealerCount => 17 && dealerCount <= 21){
-      compareScore();
+      console.log("player's count is " + playerCount);
+      console.log("dealer's count is " + dealerCount);
+      //compareScore(playerCount, dealerCount);
     }
-  }*/
-}
-/*function compareScore(playerCount, dealerCount){
-  if(playerCount > dealerCount){
-    $("#playerWin").css({"display": "block"});
-  } else {
-    $("#playerLose").css({"display": "block"})
   }
-}*/
+}
+function compareScore(playerCount, dealerCount){
+  if(playerCount > dealerCount){
+    console.log("Player Wins!");
+  } else if(playerCount === dealerCount) {
+    console.log("PUSH!");
+  } else {
+    console.log("Dealer Wins..womp womp");
+  }
+}
