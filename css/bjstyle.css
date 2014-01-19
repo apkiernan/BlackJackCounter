@@ -25,7 +25,7 @@ body  {
   height: 50px;
   width: 50%;
 }
-#score-message h3{
+#score-message h2{
   margin: auto;
   text-align: center;
 }
