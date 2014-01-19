@@ -1,4 +1,4 @@
-body {
+body  {
   width: 100%;
 }
 #container{
@@ -11,10 +11,22 @@ body {
 #nav{
   border: 5px solid white;
 }
-#playingArea div{
+#playingArea div,
+#start{
   margin: auto;
 }
 #title{
+  text-align: center;
+}
+#score-message{
+  margin: auto;
+  color: red;
+  font-weight: bold;
+  height: 50px;
+  width: 50%;
+}
+#score-message h3{
+  margin: auto;
   text-align: center;
 }
 #playerHand .cardArea,
@@ -25,4 +37,12 @@ body {
 img{
   width: 100px;
   height: 150px;
+}
+table{
+  width: 40%;
+}
+button{
+  border-radius: 50px;
+  height: 100px;
+  width: 100%;
 }

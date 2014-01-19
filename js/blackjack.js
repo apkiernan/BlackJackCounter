@@ -86,6 +86,7 @@ function deal(){
   playerHand = [];
   dealerHand = [];
   $(".cardArea").empty();
+  $("#score-message").empty();
   playerHand.push(shoe.shift());
   dealerHand.push(shoe.shift());
   playerHand.push(shoe.shift());
@@ -94,14 +95,16 @@ function deal(){
   $("#playerHand .cardArea").append(playerHand[0].face);
   $("#playerHand .cardArea").append(playerHand[1].face);
   $("#dealerHand .cardArea").append(dealerHand[0].face);
-  $("#bust","#playerLose","#playerWin").css({"display": "none"})
+  if (playerCount === 21){
+    $("#score-message").append("<h3>BLACKJACK!!</h3>")
+  }
 }
 
 function hit(){
   playerHand.push(shoe.shift());
   playerCount += playerHand[playerHand.length - 1].value;
   if(playerCount > 21){
-    $("#bust").css({"display": "block"});
+    $("#score-message").append("<h3>BUST!</h3>");
   }
   $("#playerHand .cardArea").append(playerHand[playerHand.length -1].face);
 }
@@ -115,7 +118,7 @@ function dealerTurn(){
     dealerCount += dealerHand[dealerHand.length - 1].value;
     $("#dealerHand .cardArea").append(dealerHand[dealerHand.length -1].face);
     if (dealerCount > 21){
-      console.log("Dealer breaks, player wins!")
+      $("#score-message").append("<h3>Dealer breaks, You Win!</h3>");
     }else{
       compareScore(playerCount, dealerCount);
     }
@@ -123,11 +126,11 @@ function dealerTurn(){
 }
 function compareScore(playerCount, dealerCount){
   if(playerCount > dealerCount){
-    console.log("Player Wins!");
+    $("#score-message").append("<h3>Player Wins!</h3>");;
   } else if(playerCount === dealerCount) {
-    console.log("PUSH!");
+    $("#score-message").append("<h3>PUSH!</h3>");;
   } else {
-    console.log("Dealer Wins..womp womp");
+    $("#score-message").append("<h3>Dealer Wins...womp womp</h3>");
   }
 }
 function Card(){
