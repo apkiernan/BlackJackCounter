@@ -95,6 +95,8 @@ function deal(){
   $("#playerHand .cardArea").append(playerHand[0].face);
   $("#playerHand .cardArea").append(playerHand[1].face);
   $("#dealerHand .cardArea").append(dealerHand[0].face);
+  $("#playerHand h3").text(playerCount);
+  $("#dealerHand h3").text(dealerCount);
   if (playerCount === 21){
     $("#score-message").append("<h2>BLACKJACK!!</h2>")
   }
@@ -103,6 +105,7 @@ function deal(){
 function hit(){
   playerHand.push(shoe.shift());
   playerCount += playerHand[playerHand.length - 1].value;
+  $("#playerHand h3").text(playerCount);
   if(playerCount > 21){
     $("#score-message").append("<h2>BUST!</h2>");
   }
@@ -113,10 +116,12 @@ function dealerTurn(){
   dealerHand.push(shoe.shift());
   dealerCount += dealerHand[dealerHand.length - 1].value;
   $("#dealerHand .cardArea").append(dealerHand[dealerHand.length -1].face);
+  $("#dealerHand h3").text(dealerCount);
   while (dealerCount < 17){
     dealerHand.push(shoe.shift());
     dealerCount += dealerHand[dealerHand.length - 1].value;
     $("#dealerHand .cardArea").append(dealerHand[dealerHand.length -1].face);
+    $("#dealerHand h3").text(dealerCount);
     if (dealerCount > 21){
       $("#score-message").append("<h2>Dealer breaks, You Win!</h2>");
     }else{
