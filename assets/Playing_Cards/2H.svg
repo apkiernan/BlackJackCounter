@@ -10,7 +10,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    sodipodi:docname="2H.svg"
-   inkscape:version="0.48.1 r9760"
+   inkscape:version="0.48.4 r9939"
    version="1.1"
    id="svg4423"
    height="1052.3622047"
@@ -22,20 +22,20 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994948"
-     inkscape:cx="248.48484"
-     inkscape:cy="492.08587"
+     inkscape:zoom="0.49497474"
+     inkscape:cx="138.37908"
+     inkscape:cy="418.47435"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
      inkscape:snap-page="true"
-     inkscape:window-width="690"
-     inkscape:window-height="925"
-     inkscape:window-x="935"
-     inkscape:window-y="42"
-     inkscape:window-maximized="0" />
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
   <defs
      id="defs4425" />
   <metadata
@@ -55,7 +55,7 @@
      inkscape:groupmode="layer"
      inkscape:label="2H">
     <g
-       transform="translate(-1313.6208,198.14981)"
+       transform="matrix(3.3184634,0,0,3.3642838,-5221.7777,-577.40637)"
        id="g8900"
        style="display:inline">
       <g

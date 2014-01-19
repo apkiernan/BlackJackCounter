@@ -13,7 +13,7 @@
    height="1052.3622"
    id="svg4423"
    version="1.1"
-   inkscape:version="0.48.1 r9760"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="AS.svg"
    style="display:inline">
   <sodipodi:namedview
@@ -23,9 +23,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.9899495"
-     inkscape:cx="249.72902"
-     inkscape:cy="497.22806"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="418.55037"
+     inkscape:cy="391.47952"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -34,8 +34,8 @@
      inkscape:snap-page="true"
      inkscape:window-width="735"
      inkscape:window-height="925"
-     inkscape:window-x="524"
-     inkscape:window-y="60"
+     inkscape:window-x="2631"
+     inkscape:window-y="44"
      inkscape:window-maximized="0" />
   <defs
      id="defs4425" />
@@ -57,7 +57,7 @@
      inkscape:label="Layer 1"
      style="display:inline">
     <g
-       transform="translate(-712.31835,92.135109)"
+       transform="matrix(3.3184632,0,0,3.3642837,-3226.3772,-934.0699)"
        id="g3500"
        style="display:inline">
       <g

@@ -14,7 +14,7 @@
    height="1052.3622047"
    id="svg3775"
    version="1.1"
-   inkscape:version="0.48.1 r9760"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="Blue_Back.svg">
   <sodipodi:namedview
      id="base"
@@ -31,8 +31,8 @@
      showgrid="false"
      inkscape:window-width="1320"
      inkscape:window-height="932"
-     inkscape:window-x="30"
-     inkscape:window-y="30"
+     inkscape:window-x="2105"
+     inkscape:window-y="72"
      inkscape:window-maximized="0" />
   <defs
      id="defs3777">
@@ -254,7 +254,7 @@
      inkscape:label="BLUE_BACK"
      style="display:inline">
     <g
-       transform="translate(520.04751,-131.04053)"
+       transform="matrix(3.3166498,0,0,3.3732357,864.34087,-1690.7823)"
        id="g13552"
        style="display:inline">
       <rect

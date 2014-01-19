@@ -11,6 +11,9 @@ body {
 #nav{
   border: 5px solid white;
 }
+#playingArea div{
+  margin: auto;
+}
 #title{
   text-align: center;
 }
@@ -18,4 +21,8 @@ body {
 #dealerHand .cardArea{
   width: 30%;
   height: 200px;
+}
+img{
+  width: 100px;
+  height: 150px;
 }

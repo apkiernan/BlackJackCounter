@@ -13,7 +13,7 @@
    height="1052.3622"
    id="svg4423"
    version="1.1"
-   inkscape:version="0.48.1 r9760"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="5S.svg"
    style="display:inline">
   <sodipodi:namedview
@@ -23,9 +23,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994948"
-     inkscape:cx="320.31915"
-     inkscape:cy="547.66466"
+     inkscape:zoom="0.49497474"
+     inkscape:cx="226.42473"
+     inkscape:cy="514.24686"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -34,8 +34,8 @@
      inkscape:snap-page="true"
      inkscape:window-width="735"
      inkscape:window-height="925"
-     inkscape:window-x="826"
-     inkscape:window-y="16"
+     inkscape:window-x="2388"
+     inkscape:window-y="46"
      inkscape:window-maximized="0" />
   <defs
      id="defs4425" />
@@ -56,7 +56,7 @@
      inkscape:groupmode="layer"
      inkscape:label="5S">
     <g
-       transform="translate(-1607.2251,92.135109)"
+       transform="matrix(3.3184639,0,0,3.3642837,-6196.0936,-934.0699)"
        id="g3551"
        style="display:inline">
       <g

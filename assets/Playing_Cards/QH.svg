@@ -13,7 +13,7 @@
    height="1052.3622047"
    id="svg4423"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="QH.svg">
   <title
      id="title3002">Vectorized Playing Cards 1.0</title>
@@ -24,11 +24,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="302.41061"
-     inkscape:cy="462.97577"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="494.15215"
+     inkscape:cy="185.31762"
      inkscape:document-units="px"
-     inkscape:current-layer="CropMarks"
+     inkscape:current-layer="printing-marks"
      showgrid="false"
      inkscape:snap-global="false"
      inkscape:snap-bbox="true"
@@ -74,7 +74,7 @@
     <g
        style="display:inline"
        id="g4709"
-       transform="translate(-512.47117,-136.72448)">
+       transform="matrix(3.3209962,0,0,3.3599944,-2568.2635,-1696.9353)">
       <g
          transform="translate(-1694.0633,23.063255)"
          id="g9416">

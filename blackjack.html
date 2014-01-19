@@ -6,13 +6,6 @@
 </head>
 <body>
   <div id="container">
-      <table id="start">
-        <tr>
-          <td><button onClick="getShoe()">Press to begin</button></td>
-          <td><button onClick="shuffle()">Shuffle Up!</button></td>
-          <td><button onClick="deal()">Deal!</button></td>
-        </tr>
-      </table>
       <h1 id="title">BlackJack Counter!</h1>
 
     <div id="playingArea">
@@ -26,8 +19,17 @@
         <h3>Your Hand</h3>
         <!--<h1 id="bust">BUST!</h1> -->
         <div class="cardArea"></div>
-        <button class="hit" onClick="hit()")>Hit</button>
-        <button class="stand" onClick="dealerTurn()")>Stand</button>
+        <table id="start">
+          <tr>
+            <td><button onClick="deal()">Deal!</button></td>
+            <td><button class="hit" onClick="hit()")>Hit</button></td>
+            <td><button class="stand" onClick="dealerTurn()")>Stand</button></td>
+          </tr>
+          <tr>
+            <td><button onClick="getShoe()">Press to begin</button></td>
+            <td><button onClick="shuffle()">Shuffle Up!</button></td>
+          </tr>    
+        </table>
       </div>  
     </div>
     
@@ -37,6 +39,7 @@
     
   </div>
 <script type="text/javascript" src="js/jquery 2.0.3.min.js"></script>
+
 <script type="text/javascript" src="js/blackjack.js"></script>
 </body>
 </html>

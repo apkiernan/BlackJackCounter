@@ -85,47 +85,38 @@ function shuffle(){
 function deal(){
   playerHand = [];
   dealerHand = [];
+  $(".cardArea").empty();
   playerHand.push(shoe.shift());
   dealerHand.push(shoe.shift());
   playerHand.push(shoe.shift());
-  playerCount = playerHand[0]+playerHand[1];
-  dealerCount = dealerHand[0];
-  $("#playerHand .cardArea").text(playerCount);
-  $("#dealerHand .cardArea").text(dealerCount);
+  playerCount = playerHand[0].value+playerHand[1].value;
+  dealerCount = dealerHand[0].value;
+  $("#playerHand .cardArea").append(playerHand[0].face);
+  $("#playerHand .cardArea").append(playerHand[1].face);
+  $("#dealerHand .cardArea").append(dealerHand[0].face);
   $("#bust","#playerLose","#playerWin").css({"display": "none"})
 }
 
 function hit(){
   playerHand.push(shoe.shift());
-  playerCount += playerHand[playerHand.length - 1];
+  playerCount += playerHand[playerHand.length - 1].value;
   if(playerCount > 21){
     $("#bust").css({"display": "block"});
   }
-  $("#playerHand .cardArea").text(playerCount);
-}
-
-function sum(x){
-  var y, z = 0;
-  for (var i = 0; i<x.length; i++){
-    y = parseInt(playerHand[i]);
-    z += y;
-  }
-  return z;
+  $("#playerHand .cardArea").append(playerHand[playerHand.length -1].face);
 }
 
 function dealerTurn(){
   dealerHand.push(shoe.shift());
-  dealerCount += dealerHand[dealerHand.length - 1];
-  $("#dealerHand .cardArea").text(dealerCount);
+  dealerCount += dealerHand[dealerHand.length - 1].value;
+  $("#dealerHand .cardArea").append(dealerHand[dealerHand.length -1].face);
   while (dealerCount < 17){
     dealerHand.push(shoe.shift());
-    dealerCount += dealerHand[dealerHand.length - 1];
-    $("#dealerHand .cardArea").text(dealerCount);
+    dealerCount += dealerHand[dealerHand.length - 1].value;
+    $("#dealerHand .cardArea").append(dealerHand[dealerHand.length -1].face);
     if (dealerCount > 21){
       console.log("Dealer breaks, player wins!")
     }else{
-      //console.log("player's count is " + playerCount);
-      //console.log("dealer's count is " + dealerCount);
       compareScore(playerCount, dealerCount);
     }
   }
