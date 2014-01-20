@@ -8,38 +8,25 @@
   <div id="container">
       <h1 id="title">BlackJack Counter!</h1>
       <div id="score-message"></div>
-
     <div id="playingArea">
       <div id="dealerHand">
-        <span><h2> Dealer's Hand: </h2></span>
-        <span><h3></h3></span>
+        <h2> Dealer's Hand: </h2>
+        <h3></h3>
         <div class="cardArea"></div>
       </div>
       <div id="playerHand">
-        <span><h2>Your Hand: </h2></span>
-        <span><h3></h3></span>        
+        <h2>Your Hand: </h2>
+        <h3></h3>        
         <div class="cardArea"></div>
-        <table id="start">
-          <tr>
-            <td><button onClick="deal()">Deal!</button></td>
-            <td><button class="hit" onClick="hit()")>Hit</button></td>
-            <td><button class="stand" onClick="dealerTurn()")>Stand</button></td>
-          </tr>
-          <tr>
-            <td><button onClick="getShoe()">Press to begin</button></td>
-            <td><button onClick="shuffle()">Shuffle Up!</button></td>
-          </tr>    
-        </table>
+        <button onClick="deal()">Deal!</button>
+        <button class="hit" onClick="hit()")>Hit</button>
+        <button class="stand" onClick="dealerTurn()")>Stand</button>
+        <button onClick="getShoe()">Press to Begin!</button>         
+        <button onClick="shuffle()">Shuffle Up!</button>
       </div>  
-    </div>
-    
-    
-    
-    
-    
+    </div>    
   </div>
 <script type="text/javascript" src="js/jquery 2.0.3.min.js"></script>
-
 <script type="text/javascript" src="js/blackjack.js"></script>
 </body>
 </html>
