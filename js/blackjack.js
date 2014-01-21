@@ -212,7 +212,7 @@ kingspades.suit = "spades";
 kingspades.value = 10;
 kingspades.face = "<img src=\"./assets/Playing_Cards/KS.svg\"></img>";
 
-function getShoe(){
+$("#getShoe").on("click", function(){
   //Add desired number of decks to the shoe
   var deck = [acehearts, aceclubs, acediamonds, acespades, twohearts, twoclubs, twodiamonds, twospades, threehearts, threeclubs, threediamonds, threespades, fourhearts, fourclubs, fourdiamonds, fourspades, fivehearts, fiveclubs, fivediamonds, fivespades, sixhearts, sixclubs, sixdiamonds, sixspades, sevenhearts, sevenclubs, sevendiamonds, sevenspades, eighthearts, eightclubs, eightdiamonds, eightspades, ninehearts, nineclubs, ninediamonds, ninespades, tenhearts, tenclubs, tendiamonds, tenspades, jackhearts, jackclubs, jackdiamonds, jackspades, queenhearts, queenclubs, queendiamonds, queenspades, kinghearts, kingclubs, kingdiamonds, kingspades]
   , numDecks = prompt("How many decks would you like to play with? ");
@@ -220,9 +220,9 @@ function getShoe(){
     shoe = shoe.concat(deck);   
   }
   return shoe;
-}
+});
   
-function shuffle(){  
+$("#shuffle").on("click", function(){  
   var m = shoe.length, t, i;
   // While there remain elements to shuffle…
   while (m) {
@@ -236,9 +236,9 @@ function shuffle(){
     shoe[i] = t;
     }
   return shoe;
-}
+});
 
-function deal(){
+$("#deal").on("click", function(){
   playerHand = [];
   dealerHand = [];
   $(".cardArea").empty();
@@ -256,9 +256,9 @@ function deal(){
   if (playerCount === 21){
     $("#score-message").append("<h2>BLACKJACK!!</h2>")
   }
-}
+});
 
-function hit(){
+$("#hit").on("click", function(){
   playerHand.push(shoe.shift());
   playerCount += playerHand[playerHand.length - 1].value;
   $("#playerHand h3").text(playerCount);
@@ -266,9 +266,9 @@ function hit(){
     $("#score-message").append("<h2>BUST!</h2>");
   }
   $("#playerHand .cardArea").append(playerHand[playerHand.length -1].face);
-}
+});
 
-function dealerTurn(){
+$("#stand").on("click", function(){
   dealerHand.push(shoe.shift());
   dealerCount += dealerHand[dealerHand.length - 1].value;
   $("#dealerHand .cardArea").append(dealerHand[dealerHand.length -1].face);
@@ -284,7 +284,7 @@ function dealerTurn(){
   } else{
     compareScore(playerHand, dealerHand);
   }  
-}
+});
 function compareScore(playerCount, dealerCount){
   if(playerCount > dealerCount){
     $("#score-message").append("<h2>Player Wins!</h2>")
