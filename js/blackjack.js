@@ -219,10 +219,12 @@ $("#getShoe").on("click", function(){
   for(var i = 1; i <= numDecks; i++){
     shoe = shoe.concat(deck);   
   }
+  shuffle(shoe);
   return shoe;
+ 
 });
   
-$("#shuffle").on("click", function(){  
+function shuffle(shoe){  
   var m = shoe.length, t, i;
   // While there remain elements to shuffle…
   while (m) {
@@ -236,7 +238,7 @@ $("#shuffle").on("click", function(){
     shoe[i] = t;
     }
   return shoe;
-});
+};
 
 $("#deal").on("click", function(){
   playerHand = [];
@@ -282,7 +284,7 @@ $("#stand").on("click", function(){
   if(dealerCount > 21){
     $("#score-message").append("<h2>Player Wins!</h2>")
   } else{
-    compareScore(playerHand, dealerHand);
+    compareScore(playerCount, dealerCount);
   }  
 });
 function compareScore(playerCount, dealerCount){

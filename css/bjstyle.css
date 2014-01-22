@@ -1,22 +1,22 @@
 body  {
   width: 100%;
+  background: #010A00;
 }
 #container{
   width: 80%;
-  border: 2px solid white;
+  border: 10px solid black;
   background: #032107;
   margin: 0px auto;
   color: #FFF;
-}
-#nav{
-  border: 5px solid white;
+  border-bottom-right-radius: 300px;
+  border-bottom-left-radius: 300px;
 }
 #playingArea div,
 #start{
   margin: auto;
 }
 #title{
-  text-align: center;
+  text-align: left;
 }
 #score-message{
   margin: auto;
@@ -38,11 +38,15 @@ img{
   width: 100px;
   height: 150px;
 }
-table{
-  width: 40%;
+#controls {
+  position: relative;
+  left: 30%;
 }
 button{
   border-radius: 50px;
   height: 50px;
   width: 150px;
+}
+#playerHand button {
+  margin: 0px auto;
 }
