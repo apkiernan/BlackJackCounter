@@ -257,6 +257,7 @@ $("#deal").on("click", function(){
   $("#playerHand h3").text(playerCount);
   $("#dealerHand h3").text(dealerCount);
   if (playerCount === 21){
+    endRound();
     $("#score-message").append("<h2>BLACKJACK!!</h2>")
   }
 });
@@ -266,6 +267,7 @@ $("#hit").on("click", function(){
   playerCount += playerHand[playerHand.length - 1].value;
   $("#playerHand h3").text(playerCount);
   if(playerCount > 21){
+    endRound();
     $("#score-message").append("<h2>BUST!</h2>");
   }
   $("#playerHand .cardArea").append(playerHand[playerHand.length -1].face);
