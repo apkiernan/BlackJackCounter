@@ -241,6 +241,7 @@ function shuffle(shoe){
 };
 
 $("#deal").on("click", function(){
+  newRound();
   playerHand = [];
   dealerHand = [];
   $(".cardArea").empty();
@@ -288,6 +289,7 @@ $("#stand").on("click", function(){
   }  
 });
 function compareScore(playerCount, dealerCount){
+  endRound();
   if(playerCount > dealerCount){
     $("#score-message").append("<h2>Player Wins!</h2>")
   } else if(playerCount === dealerCount){
@@ -295,4 +297,12 @@ function compareScore(playerCount, dealerCount){
   } else{
     $("#score-message").append("<h2>Dealer Wins...womp womp</h2>")
   }
+}
+function endRound(){
+  $("#hit").hide();
+  $("#stand").hide();
+}
+function newRound(){
+  $("#hit").show();
+  $("#stand").show();
 }
