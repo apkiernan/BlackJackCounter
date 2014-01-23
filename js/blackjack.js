@@ -11,9 +11,13 @@ function Card(){
   this.face = "<img src=\"./assets/Playing_Cards/2H.svg\"></img>";
   this.back = "<img src=\"./assets/Playing_Cards/Blue_Back.svg\"></img>"
 }
+function Ace(){
+  this.isAce = true;
+}
+Ace.prototype = new Card();
 
 //Hearts Suit
-var acehearts = new Card();
+var acehearts = new Ace();
 acehearts.value = 11;
 acehearts.face = "<img src=\"./assets/Playing_Cards/AH.svg\"></img>";
 var twohearts = new Card();
@@ -53,7 +57,7 @@ var kinghearts = new Card();
 kinghearts.value = 10;
 kinghearts.face = "<img src=\"./assets/Playing_Cards/KH.svg\"></img>";
 //Clubs Suit
-var aceclubs = new Card();
+var aceclubs = new Ace();
 aceclubs.suit = "clubs";
 aceclubs.value = 11;
 aceclubs.face = "<img src=\"./assets/Playing_Cards/AC.svg\"></img>";
@@ -106,7 +110,7 @@ kingclubs.suit = "clubs";
 kingclubs.value = 10;
 kingclubs.face = "<img src=\"./assets/Playing_Cards/KC.svg\"></img>";
 //Diamonds Suit
-var acediamonds = new Card();
+var acediamonds = new Ace();
 acediamonds.suit = "diamonds";
 acediamonds.value = 11;
 acediamonds.face = "<img src=\"./assets/Playing_Cards/AD.svg\"></img>";
@@ -159,7 +163,7 @@ kingdiamonds.suit = "diamonds";
 kingdiamonds.value = 10;
 kingdiamonds.face = "<img src=\"./assets/Playing_Cards/KD.svg\"></img>";
 //Spades Suit
-var acespades = new Card();
+var acespades = new Ace();
 acespades.suit = "spades";
 acespades.value = 11;
 acespades.face = "<img src=\"./assets/Playing_Cards/AS.svg\"></img>";
@@ -264,11 +268,11 @@ $("#hit").on("click", function(){
   playerHand.push(shoe.shift());
   playerCount += playerHand[playerHand.length - 1].value;
   $("#playerHand h4").text(playerCount);
-  if(playerCount > 21){
-    endRound();
-    $("#score-message").append("<h3>BUST!</h3>");
+  if(aceBreak(playerCount, hasAce(playerHand))){
+    $("#playerHand .cardArea").append(playerHand[playerHand.length -1].face);
   }
-  $("#playerHand .cardArea").append(playerHand[playerHand.length -1].face);
+  endRound();
+  $("#score-message").append("<h3>BUST!</h3>");
 });
 
 $("#stand").on("click", function(){
@@ -306,4 +310,18 @@ function endRound(){
 function newRound(){
   $("#hit").show();
   $("#stand").show();
+}
+var hasAce = function(hand){
+  for(var i=0; i < hand.length; i++){
+    if(hand[i].isAce){
+      var ace = hand[i];
+      return ace;
+    }
+  }
+  return false;
+}
+function aceBreak(score, ace){
+  if(score > 21 && hasAce){
+    ace.value = 1;
+  }
 }
