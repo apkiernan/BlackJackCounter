@@ -2,31 +2,35 @@
 <html lang="en">
 <head>
 <title> BlackJack Counter </title>
+<link rel="stylesheet" href="css/bootstrap.css"/>
 <link rel="stylesheet" href="css/bjstyle.css"/>
 </head>
 <body>
-  <div id="container">
-      <h1 id="title">BlackJack Counter!</h1>
-      <button id="getShoe">Press to Begin!</button>
+  <div class="container">
+    <div class="header">
+      <button id="newGame">Press to Begin!</button>
+      <h2 id="title">BlackJack Counter!</h2>
       <div id="score-message"></div>
-    <div id="playingArea">
-      <div id="dealerHand">
-        <h2> Dealer's Hand: </h2>
-        <h3></h3>
+    </div>
+    <div class="row" id="playingArea">
+      <div class="col-md-offset-6" id="dealerHand">
+        <span><h3> Dealer's Hand: </h3>
+        <h4></h4>
+        </span>
         <div class="cardArea"></div>
       </div>
-      <div id="playerHand">
-        <h2>Your Hand: </h2>
-        <h3></h3>
-        <div class="cardArea"></div>
-        <div id="controls">
-          <button id="deal">Deal!</button>
-          <button id="hit">Hit</button>
-          <button id="stand">Stand</button>
-        </div>
+      <div class="col-md-offset-6" id="playerHand">
+        <h3>Your Hand: </h3> 
+          <h4></h4>
+        <div class="cardArea"></div>    
       </div>
     </div>
   </div>
+   <div id="controls">
+      <button id="deal">Deal!</button>
+      <button id="hit">Hit</button>
+      <button id="stand">Stand</button>
+    </div>
 <script type="text/javascript" src="./js/jquery 2.0.3.min.js"></script>
 <script type="text/javascript" src="./js/blackjack.js"></script>
 </body>

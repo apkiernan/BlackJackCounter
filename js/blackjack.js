@@ -212,18 +212,16 @@ kingspades.suit = "spades";
 kingspades.value = 10;
 kingspades.face = "<img src=\"./assets/Playing_Cards/KS.svg\"></img>";
 
-$("#getShoe").on("click", function(){
-  //Add desired number of decks to the shoe
+$("#newGame").on("click", function(){
+  //Adds desired number of decks to the shoe
   var deck = [acehearts, aceclubs, acediamonds, acespades, twohearts, twoclubs, twodiamonds, twospades, threehearts, threeclubs, threediamonds, threespades, fourhearts, fourclubs, fourdiamonds, fourspades, fivehearts, fiveclubs, fivediamonds, fivespades, sixhearts, sixclubs, sixdiamonds, sixspades, sevenhearts, sevenclubs, sevendiamonds, sevenspades, eighthearts, eightclubs, eightdiamonds, eightspades, ninehearts, nineclubs, ninediamonds, ninespades, tenhearts, tenclubs, tendiamonds, tenspades, jackhearts, jackclubs, jackdiamonds, jackspades, queenhearts, queenclubs, queendiamonds, queenspades, kinghearts, kingclubs, kingdiamonds, kingspades]
-  , numDecks = prompt("How many decks would you like to play with? ");
+  , numDecks = 2;//prompt("How many decks would you like to play with? ");
   for(var i = 1; i <= numDecks; i++){
     shoe = shoe.concat(deck);   
   }
   shuffle(shoe);
   return shoe;
- 
-});
-  
+}); 
 function shuffle(shoe){  
   var m = shoe.length, t, i;
   // While there remain elements to shuffle…
@@ -254,21 +252,21 @@ $("#deal").on("click", function(){
   $("#playerHand .cardArea").append(playerHand[0].face);
   $("#playerHand .cardArea").append(playerHand[1].face);
   $("#dealerHand .cardArea").append(dealerHand[0].face);
-  $("#playerHand h3").text(playerCount);
-  $("#dealerHand h3").text(dealerCount);
+  $("#playerHand h4").text(playerCount);
+  $("#dealerHand h4").text(dealerCount);
   if (playerCount === 21){
     endRound();
-    $("#score-message").append("<h2>BLACKJACK!!</h2>")
+    $("#score-message").append("<h3>BLACKJACK!!</h3>")
   }
 });
 
 $("#hit").on("click", function(){
   playerHand.push(shoe.shift());
   playerCount += playerHand[playerHand.length - 1].value;
-  $("#playerHand h3").text(playerCount);
+  $("#playerHand h4").text(playerCount);
   if(playerCount > 21){
     endRound();
-    $("#score-message").append("<h2>BUST!</h2>");
+    $("#score-message").append("<h3>BUST!</h3>");
   }
   $("#playerHand .cardArea").append(playerHand[playerHand.length -1].face);
 });
@@ -277,15 +275,16 @@ $("#stand").on("click", function(){
   dealerHand.push(shoe.shift());
   dealerCount += dealerHand[dealerHand.length - 1].value;
   $("#dealerHand .cardArea").append(dealerHand[dealerHand.length -1].face);
-  $("#dealerHand h3").text(dealerCount);
+  $("#dealerHand h4").text(dealerCount);
   while (dealerCount < 17){
     dealerHand.push(shoe.shift());
     dealerCount += dealerHand[dealerHand.length - 1].value;
     $("#dealerHand .cardArea").append(dealerHand[dealerHand.length -1].face);
-    $("#dealerHand h3").text(dealerCount);
+    $("#dealerHand h4").text(dealerCount);
   }
   if(dealerCount > 21){
-    $("#score-message").append("<h2>Player Wins!</h2>")
+    endRound();
+    $("#score-message").append("<h3>Player Wins!</h3>")
   } else{
     compareScore(playerCount, dealerCount);
   }  
@@ -293,11 +292,11 @@ $("#stand").on("click", function(){
 function compareScore(playerCount, dealerCount){
   endRound();
   if(playerCount > dealerCount){
-    $("#score-message").append("<h2>Player Wins!</h2>")
+    $("#score-message").append("<h3>Player Wins!</h3>")
   } else if(playerCount === dealerCount){
-    $("#score-message").append("<h2>PUSH!</h2>")
+    $("#score-message").append("<h3>PUSH!</h3>")
   } else{
-    $("#score-message").append("<h2>Dealer Wins...womp womp</h2>")
+    $("#score-message").append("<h3>Dealer Wins...womp womp</h3>")
   }
 }
 function endRound(){
