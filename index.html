@@ -6,6 +6,10 @@
 <link rel="stylesheet" href="css/bjstyle.css"/>
 </head>
 <body>
+  <aside>
+    <p>Notes:</p>
+    <p>Aces are always 11 (to be fixed)</p>
+  </aside>
   <div class="container">
     <div class="header">
       <button id="newGame">Press to Begin!</button>
@@ -26,11 +30,13 @@
       </div>
     </div>
   </div>
-   <div id="controls">
-      <button id="deal">Deal!</button>
-      <button id="hit">Hit</button>
-      <button id="stand">Stand</button>
-    </div>
+   <table id="controls">
+    <tr>
+      <td><button id="deal">Deal!</button></td>
+      <td><button id="hit">Hit</button></td>
+      <td><button id="stand">Stand</button></td>
+    </tr>
+   </table>
 <script type="text/javascript" src="./js/jquery 2.0.3.min.js"></script>
 <script type="text/javascript" src="./js/blackjack.js"></script>
 </body>

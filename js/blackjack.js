@@ -268,11 +268,11 @@ $("#hit").on("click", function(){
   playerHand.push(shoe.shift());
   playerCount += playerHand[playerHand.length - 1].value;
   $("#playerHand h4").text(playerCount);
-  if(aceBreak(playerCount, hasAce(playerHand))){
-    $("#playerHand .cardArea").append(playerHand[playerHand.length -1].face);
+  $("#playerHand .cardArea").append(playerHand[playerHand.length -1].face);
+  if(playerCount > 21){
+    endRound();
+    $("#score-message").append("<h3>BUST!</h3>");
   }
-  endRound();
-  $("#score-message").append("<h3>BUST!</h3>");
 });
 
 $("#stand").on("click", function(){
