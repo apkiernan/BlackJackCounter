@@ -217,10 +217,11 @@ kingspades.value = 10;
 kingspades.face = "<img src=\"./assets/Playing_Cards/KS.svg\"></img>";
 
 $("#newGame").on("click", function(){
-  //Adds desired number of decks to the shoe
+  
   var deck = [acehearts, aceclubs, acediamonds, acespades, twohearts, twoclubs, twodiamonds, twospades, threehearts, threeclubs, threediamonds, threespades, fourhearts, fourclubs, fourdiamonds, fourspades, fivehearts, fiveclubs, fivediamonds, fivespades, sixhearts, sixclubs, sixdiamonds, sixspades, sevenhearts, sevenclubs, sevendiamonds, sevenspades, eighthearts, eightclubs, eightdiamonds, eightspades, ninehearts, nineclubs, ninediamonds, ninespades, tenhearts, tenclubs, tendiamonds, tenspades, jackhearts, jackclubs, jackdiamonds, jackspades, queenhearts, queenclubs, queendiamonds, queenspades, kinghearts, kingclubs, kingdiamonds, kingspades]
   , numDecks = prompt("How many decks would you like to play with? ");
   for(var i = 1; i <= numDecks; i++){
+    //Adds desired number of decks to the shoe
     shoe = shoe.concat(deck);   
   }
   shuffle(shoe);
@@ -311,17 +312,4 @@ function newRound(){
   $("#hit").show();
   $("#stand").show();
 }
-var hasAce = function(hand){
-  for(var i=0; i < hand.length; i++){
-    if(hand[i].isAce){
-      var ace = hand[i];
-      return ace;
-    }
-  }
-  return false;
-}
-function aceBreak(score, ace){
-  if(score > 21 && hasAce){
-    ace.value = 1;
-  }
-}
+
