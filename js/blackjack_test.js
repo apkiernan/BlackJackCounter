@@ -1,11 +1,11 @@
+var shoe = [];
+
 //Player Objects
 function Player () {
-	this.hand = [],
-	this.score = 0,
-	this.hit = function () {
-		this.hand.push(topCard);
-		return this.hand;
-	}
+	this.hand = [];
+  this.score = 0;
+	this.hit = hit(player);
+	
 }
 
 function Dealer () {
@@ -17,6 +17,13 @@ function Dealer () {
 }
 
 Dealer.prototype = new Player ();
+
+var player = new Player ();
+var dealer = new Dealer ();
+
+function hit (player) {
+  return player.hand.push(shoe.shift());
+}
 
 // Card Objects
 function Card(){
@@ -233,16 +240,16 @@ kingspades.suit = "spades";
 kingspades.value = 10;
 kingspades.face = "<img src=\"./assets/Playing_Cards/KS.svg\"></img>";
 
-var shoe = function () {
+var getShoe = function () {
 	var deck = [acehearts, aceclubs, acediamonds, acespades, twohearts, twoclubs, twodiamonds, twospades, threehearts, threeclubs, threediamonds, threespades, fourhearts, fourclubs, fourdiamonds, fourspades, fivehearts, fiveclubs, fivediamonds, fivespades, sixhearts, sixclubs, sixdiamonds, sixspades, sevenhearts, sevenclubs, sevendiamonds, sevenspades, eighthearts, eightclubs, eightdiamonds, eightspades, ninehearts, nineclubs, ninediamonds, ninespades, tenhearts, tenclubs, tendiamonds, tenspades, jackhearts, jackclubs, jackdiamonds, jackspades, queenhearts, queenclubs, queendiamonds, queenspades, kinghearts, kingclubs, kingdiamonds, kingspades]
- 	, numDecks = prompt("How many decks would you like to play with? ")
- 	, shoe = [];
-  	for(var i = 1; i <= numDecks; i++){
-    //Adds desired number of decks to the shoe
-    	shoe = shoe.concat(deck);   
-  	}
-  	shuffle(shoe);
-	return shoe;
+ 	, numDecks = prompt("How many decks would you like to play with? ");
+  	return (function () {
+      for(var i = 1; i <= numDecks; i++){
+        //Adds desired number of decks to the shoe
+    	  shoe = shoe.concat(deck);   
+  	  }
+  	  shuffle(shoe);
+	    return shoe})();
 }
 
 function shuffle(shoe){  
@@ -271,4 +278,8 @@ function compareScore (player, dealer) {
 	} else {
 		dealerWins();
 	}
+}
+
+var topCard = function () {
+  return shoe.shift();
 }
