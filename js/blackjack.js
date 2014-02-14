@@ -1,20 +1,25 @@
-var shoe = []
-, playerHand = []
-, dealerHand = []
-, playerCount
-, dealerCount;
+var shoe            = []
+,   playerHand      = []
+,   dealerHand      = []
+,   playerScoreBox = $( "#playerHand h4" )
+,   playerCardArea = $( "#playerHand .cardArea" )
+,   dealerScoreBox = $( "#dealerHand h4" )
+,   dealerCardArea = $( "#dealerHand .cardArea" )
+,   playerCount    = 0
+,   dealerCount    = 0
+,   count          = 0;
 
 // Card Objects
-function Card(){
+function Card () {
   this.suit = "hearts";
   this.value = 0;
   this.face = "<img src=\"./assets/Playing_Cards/2H.svg\"></img>";
   this.back = "<img src=\"./assets/Playing_Cards/Blue_Back.svg\"></img>"
 }
-function Ace(){
+function Ace () {
   this.isAce = true;
 }
-Ace.prototype = new Card();
+Ace.prototype = new Card ();
 
 //Hearts Suit
 var acehearts = new Ace();
@@ -56,6 +61,7 @@ queenhearts.face = "<img src=\"./assets/Playing_Cards/QH.svg\"></img>";
 var kinghearts = new Card();
 kinghearts.value = 10;
 kinghearts.face = "<img src=\"./assets/Playing_Cards/KH.svg\"></img>";
+
 //Clubs Suit
 var aceclubs = new Ace();
 aceclubs.suit = "clubs";
@@ -109,6 +115,7 @@ var kingclubs = new Card();
 kingclubs.suit = "clubs";
 kingclubs.value = 10;
 kingclubs.face = "<img src=\"./assets/Playing_Cards/KC.svg\"></img>";
+
 //Diamonds Suit
 var acediamonds = new Ace();
 acediamonds.suit = "diamonds";
@@ -162,6 +169,7 @@ var kingdiamonds = new Card();
 kingdiamonds.suit = "diamonds";
 kingdiamonds.value = 10;
 kingdiamonds.face = "<img src=\"./assets/Playing_Cards/KD.svg\"></img>";
+
 //Spades Suit
 var acespades = new Ace();
 acespades.suit = "spades";
@@ -226,6 +234,7 @@ $("#newGame").on("click", function(){
   shuffle(shoe);
   return shoe;
 }); 
+
 function shuffle(shoe){  
   var m = shoe.length, t, i;
   // While there remain elements to shuffle…
@@ -242,86 +251,113 @@ function shuffle(shoe){
   return shoe;
 };
 
-$("#deal").on("click", function(){
-  newRound();
+$("#deal").on("click", function () {
+  //Reset the players' hands from previous round.
+
+  newRound ();
   playerHand = [];
   dealerHand = [];
-  $(".cardArea").empty();
-  $("#score-message").empty();
-  playerHand.push(shoe.shift());
-  dealerHand.push(shoe.shift());
-  playerHand.push(shoe.shift());
-  playerCount = playerHand[0].value+playerHand[1].value;
+  $( ".cardArea" ).empty();
+  $( "#score-message" ).empty();
+
+  //Deal 2 cards to player and 1 to dealer.
+  getCount();
+  playerHand.push( shoe.shift() );
+  getCount();
+  dealerHand.push( shoe.shift() );
+  getCount();
+  playerHand.push( shoe.shift() );
+  playerCount = playerHand[0].value + playerHand[1].value;
   dealerCount = dealerHand[0].value;
-  $("#playerHand .cardArea").append(playerHand[0].face);
-  $("#playerHand .cardArea").append(playerHand[1].face);
-  $("#dealerHand .cardArea").append(dealerHand[0].face);
-  $("#playerHand h4").text(playerCount);
-  $("#dealerHand h4").text(dealerCount);
-  if (playerCount === 21){
+  playerCardArea.append ( playerHand[0].face );
+  playerCardArea.append ( playerHand[1].face );
+  dealerCardArea.append ( dealerHand[0].face );
+  playerScoreBox.text ( playerCount );
+  dealerScoreBox.text ( dealerCount );
+  //Check for Blackjack
+  if ( playerCount === 21 ) {
     endRound();
-    $("#score-message").append("<h3>BLACKJACK!!</h3>")
+    $("#score-message").append ( "<h3>BLACKJACK!!</h3>" )
   }
 });
 
-$("#hit").on("click", function(){
-  playerHand.push(shoe.shift());
+$( "#hit" ).on( "click", function () {
+  getCount();
+  playerHand.push( shoe.shift() );
   playerCount += playerHand[playerHand.length - 1].value;
-  $("#playerHand h4").text(playerCount);
-  $("#playerHand .cardArea").append(playerHand[playerHand.length -1].face);
+  playerScoreBox.text( playerCount );
+  playerCardArea.append( playerHand[ playerHand.length -1 ].face);
+  //Check to see if player busts
   if(playerCount > 21){
     endRound();
-    $("#score-message").append("<h3>BUST!</h3>");
+    $( "#score-message" ).append( "<h3>BUST!</h3>" );
   }
 });
 
-$("#stand").on("click", function(){
-  dealerHand.push(shoe.shift());
-  dealerCount += dealerHand[dealerHand.length - 1].value;
-  $("#dealerHand .cardArea").append(dealerHand[dealerHand.length -1].face);
-  $("#dealerHand h4").text(dealerCount);
-  while (dealerCount < 17){
-    dealerHand.push(shoe.shift());
-    dealerCount += dealerHand[dealerHand.length - 1].value;
-    $("#dealerHand .cardArea").append(dealerHand[dealerHand.length -1].face);
-    $("#dealerHand h4").text(dealerCount);
-  }
-  if(dealerCount > 21){
+//Begins the dealer's turn
+$( "#stand" ).on("click", function () {
+  do {
+    getCount();
+    dealerHand.push( shoe.shift() );
+    dealerCount += dealerHand[ dealerHand.length - 1 ].value;
+    dealerCardArea.append( dealerHand[ dealerHand.length -1 ].face );
+    dealerScoreBox.text( dealerCount );
+  } while ( dealerCount < 17 );
+
+  if ( dealerCount > 21 ){
     endRound();
-    $("#score-message").append("<h3>Player Wins!</h3>")
-  } else{
-    compareScore(playerCount, dealerCount);
+    $( "#score-message" ).append( "<h3>Player Wins!</h3>" )
+  } else { 
+    compareScore( playerCount, dealerCount );
   }  
 });
-function compareScore(playerCount, dealerCount){
+
+function compareScore ( playerCount, dealerCount ) {
   endRound();
-  if(playerCount > dealerCount){
-    $("#score-message").append("<h3>Player Wins!</h3>")
-  } else if(playerCount === dealerCount){
-    $("#score-message").append("<h3>PUSH!</h3>")
-  } else{
-    $("#score-message").append("<h3>Dealer Wins...womp womp</h3>")
+  if( playerCount > dealerCount ){
+    $( "#score-message" ).append( "<h3>Player Wins!</h3>" )
+  } else if( playerCount === dealerCount ){
+    $( "#score-message" ).append( "<h3>PUSH!</h3>" )
+  } else {
+    $( "#score-message" ).append( "<h3>Dealer Wins...womp womp</h3>" )
   }
 }
+
+//Removes Hit/Stand buttons each round.
 function endRound(){
   $("#hit").hide();
   $("#stand").hide();
 }
+
+//Adds Hit/Stand buttons each round.
 function newRound(){
   $("#hit").show();
   $("#stand").show();
 }
-var hasAce = function(hand){
-  for(var i=0; i < hand.length; i++){
-    if(hand[i].isAce){
+
+var hasAce = function ( hand ) {
+  for( var i=0; i < hand.length; i++ ) {
+    if( hand[i].isAce ){
       var ace = hand[i];
       return ace;
     }
   }
   return false;
 }
-function aceBreak(score, ace){
-  if(score > 21 && hasAce){
+function aceBreak ( score, ace ) {
+  if( score > 21 && hasAce ) {
     ace.value = 1;
   }
+}
+
+function getCount () {
+  var topCard = shoe[0];
+  if ( topCard.value > 9 ) {
+    count --
+  } else if ( topCard.value < 7 ) {
+    count ++
+  } else {
+    return count
+  }
+  return count
 }
