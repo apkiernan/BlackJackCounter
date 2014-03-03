@@ -14,7 +14,6 @@ function Card () {
   this.suit = "hearts";
   this.value = 0;
   this.face = "<img src=\"./assets/Playing_Cards/2H.svg\"></img>";
-  this.back = "<img src=\"./assets/Playing_Cards/Blue_Back.svg\"></img>"
 }
 function Ace () {
   this.isAce = true;
@@ -261,6 +260,7 @@ $("#deal").on("click", function () {
   $( "#score-message" ).empty();
 
   //Deal 2 cards to player and 1 to dealer.
+
   getCount();
   playerHand.push( shoe.shift() );
   getCount();
@@ -274,7 +274,9 @@ $("#deal").on("click", function () {
   dealerCardArea.append ( dealerHand[0].face );
   playerScoreBox.text ( playerCount );
   dealerScoreBox.text ( dealerCount );
+  
   //Check for Blackjack
+
   if ( playerCount === 21 ) {
     endRound();
     $("#score-message").append ( "<h3>BLACKJACK!!</h3>" )
@@ -287,7 +289,9 @@ $( "#hit" ).on( "click", function () {
   playerCount += playerHand[playerHand.length - 1].value;
   playerScoreBox.text( playerCount );
   playerCardArea.append( playerHand[ playerHand.length -1 ].face);
+  
   //Check to see if player busts
+  
   if(playerCount > 21){
     endRound();
     $( "#score-message" ).append( "<h3>BUST!</h3>" );
@@ -295,6 +299,7 @@ $( "#hit" ).on( "click", function () {
 });
 
 //Begins the dealer's turn
+
 $( "#stand" ).on("click", function () {
   do {
     getCount();
