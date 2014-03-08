@@ -1,13 +1,13 @@
-var shoe            = []
-,   playerHand      = []
-,   dealerHand      = []
-,   playerScoreBox = $( "#playerHand h4" )
-,   playerCardArea = $( "#playerHand .cardArea" )
-,   dealerScoreBox = $( "#dealerHand h4" )
-,   dealerCardArea = $( "#dealerHand .cardArea" )
-,   playerCount    = 0
-,   dealerCount    = 0
-,   count          = 0;
+var shoe            = [],
+    playerHand      = [],
+    dealerHand      = [],
+    playerScoreBox = $( "#playerHand h4" ),
+    playerCardArea = $( "#playerHand .cardArea" ),
+    dealerScoreBox = $( "#dealerHand h4" ),
+    dealerCardArea = $( "#dealerHand .cardArea" ),
+    playerCount    = 0,
+    dealerCount    = 0,
+    count          = 0;
 
 // Card Objects
 function Card () {
@@ -224,8 +224,19 @@ kingspades.value = 10;
 kingspades.face = "<img src=\"./assets/Playing_Cards/KS.svg\"></img>";
 
 $("#newGame").on("click", function(){  
-  var deck = [acehearts, aceclubs, acediamonds, acespades, twohearts, twoclubs, twodiamonds, twospades, threehearts, threeclubs, threediamonds, threespades, fourhearts, fourclubs, fourdiamonds, fourspades, fivehearts, fiveclubs, fivediamonds, fivespades, sixhearts, sixclubs, sixdiamonds, sixspades, sevenhearts, sevenclubs, sevendiamonds, sevenspades, eighthearts, eightclubs, eightdiamonds, eightspades, ninehearts, nineclubs, ninediamonds, ninespades, tenhearts, tenclubs, tendiamonds, tenspades, jackhearts, jackclubs, jackdiamonds, jackspades, queenhearts, queenclubs, queendiamonds, queenspades, kinghearts, kingclubs, kingdiamonds, kingspades]
-  , numDecks = prompt("How many decks would you like to play with? ");
+  var deck = [
+              acehearts, aceclubs, acediamonds, acespades, twohearts, 
+              twoclubs, twodiamonds, twospades, threehearts, threeclubs, 
+              threediamonds, threespades, fourhearts, fourclubs, fourdiamonds, 
+              fourspades, fivehearts, fiveclubs, fivediamonds, fivespades, 
+              sixhearts, sixclubs, sixdiamonds, sixspades, sevenhearts, sevenclubs, 
+              sevendiamonds, sevenspades, eighthearts, eightclubs, eightdiamonds, 
+              eightspades, ninehearts, nineclubs, ninediamonds, ninespades, tenhearts, 
+              tenclubs, tendiamonds, tenspades, jackhearts, jackclubs, jackdiamonds, 
+              jackspades, queenhearts, queenclubs, queendiamonds, queenspades, kinghearts, 
+              kingclubs, kingdiamonds, kingspades
+              ],
+      numDecks = prompt("How many decks would you like to play with? ");
   for(var i = 1; i <= numDecks; i++){
     //Adds desired number of decks to the shoe
     shoe = shoe.concat(deck);   
@@ -248,7 +259,7 @@ function shuffle(shoe){
     shoe[i] = t;
     }
   return shoe;
-};
+}
 
 $("#deal").on("click", function () {
   //Reset the players' hands from previous round.
@@ -279,7 +290,7 @@ $("#deal").on("click", function () {
 
   if ( playerCount === 21 ) {
     endRound();
-    $("#score-message").append ( "<h3>BLACKJACK!!</h3>" )
+    $("#score-message").append ( "<h3>BLACKJACK!!</h3>" );
   }
 });
 
@@ -311,47 +322,37 @@ $( "#stand" ).on("click", function () {
 
   if ( dealerCount > 21 ){
     endRound();
-    $( "#score-message" ).append( "<h3>Player Wins!</h3>" )
+    $( "#score-message" ).append( "<h3>Player Wins!</h3>" );
   } else { 
     compareScore( playerCount, dealerCount );
   }  
 });
 
-<<<<<<< HEAD
-function compareScore(playerCount, dealerCount){
-=======
 function compareScore ( playerCount, dealerCount ) {
->>>>>>> gh-pages
   endRound();
   if( playerCount > dealerCount ){
-    $( "#score-message" ).append( "<h3>Player Wins!</h3>" )
+    $( "#score-message" ).append( "<h3>Player Wins!</h3>" );
   } else if( playerCount === dealerCount ){
-    $( "#score-message" ).append( "<h3>PUSH!</h3>" )
+    $( "#score-message" ).append( "<h3>PUSH!</h3>" );
   } else {
-    $( "#score-message" ).append( "<h3>Dealer Wins...womp womp</h3>" )
+    $( "#score-message" ).append( "<h3>Dealer Wins...womp womp</h3>" );
   }
 }
 
-<<<<<<< HEAD
-=======
 //Removes Hit/Stand buttons each round.
->>>>>>> gh-pages
+
 function endRound(){
   $("#hit").hide();
   $("#stand").hide();
 }
 
-<<<<<<< HEAD
-=======
 //Adds Hit/Stand buttons each round.
->>>>>>> gh-pages
+
 function newRound(){
   $("#hit").show();
   $("#stand").show();
 }
 
-<<<<<<< HEAD
-=======
 var hasAce = function ( hand ) {
   for( var i=0; i < hand.length; i++ ) {
     if( hand[i].isAce ){
@@ -360,7 +361,8 @@ var hasAce = function ( hand ) {
     }
   }
   return false;
-}
+};
+
 function aceBreak ( score, ace ) {
   if( score > 21 && hasAce ) {
     ace.value = 1;
@@ -370,12 +372,11 @@ function aceBreak ( score, ace ) {
 function getCount () {
   var topCard = shoe[0];
   if ( topCard.value > 9 ) {
-    count --
+    count -- ;
   } else if ( topCard.value < 7 ) {
-    count ++
+    count ++ ;
   } else {
-    return count
+    return count;
   }
-  return count
+  return count;
 }
->>>>>>> gh-pages
