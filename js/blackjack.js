@@ -380,3 +380,10 @@ function getCount () {
   }
   return count;
 }
+
+$( "#countButton" ).on('click', function () {
+  $( "#count" ).text( count );
+  $( "#count" ).slideToggle ( 500, function () {
+    $( this ).css( "z-index", "10000" );
+  });
+})
