@@ -3,37 +3,51 @@
 <head>
 <title> BlackJack Counter </title>
 <meta charset="UTF-8"/>
-<link rel="stylesheet" href="css/bootstrap.css"/>
 <link rel="stylesheet" href="css/bjstyle.css"/>
 </head>
 <body>
+
   <aside>
     <p>Notes:</p>
     <p>Aces are always 11 (to be fixed)</p>
     <p>Type "count" in the developer console</p>
     <p>to get the current deck count.</p>
   </aside>
-  <div class="container">
-    <div class="header">
-      <button id="newGame">Press to Begin!</button>
-      <h2 id="title">BlackJack Counter!</h2>
-      <div id="score-message"></div>
+
+  <div class="title"><h1>BlackJack Counter!</h1></div>
+
+  <div class="table">
+    <button id="newGame">Press to Begin!</button>
+
+    <div id="score-message">
+
+      <h3>Blackjack!!</h3>
+      <h3>Bust!</h3>
+      <h3>Player Wins!</h3>
+      <h3>Push!</h3>
+      <h3>Dealer Wins...womp womp</h3>
+
     </div>
-    <div class="row" id="playingArea">
-      <div class="col-md-offset-6" id="dealerHand">
+
+    <div id="playingArea">
+      
+      <div id="dealerHand">
         <span><h3> Dealer's Hand: </h3>
-        <h4></h4>
+        <h4>18</h4>
         </span>
-        <div class="cardArea"></div>
+        <div class="cardArea"><img src="./assets/Playing_Cards/9D.svg"><img src="./assets/Playing_Cards/9D.svg"></div>
       </div>
-      <div class="col-md-offset-6" id="playerHand">
+
+      <div id="playerHand">
         <span><h3>Your Hand: </h3>
-          <h4></h4>
+          <h4>18</h4>
         </span>
-        <div class="cardArea"></div>    
+        <div class="cardArea"><img src="./assets/Playing_Cards/9D.svg"><img src="./assets/Playing_Cards/9D.svg"></div>    
       </div>
+
     </div>
   </div>
+
    <table id="controls">
     <tr>
       <td><button id="deal">Deal!</button></td>

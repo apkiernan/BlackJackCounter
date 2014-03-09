@@ -1,85 +1,58 @@
-html,
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
 body {
-  height: 95%;
-  background: #010A00;
   width: 100%;
-}
-h3 {
-  font-size: 2em;
-}
-h2 {
-  font-size: 2.5em;
+  margin: 0px auto;
+  background: #004722;
 }
 aside {
   float: left;
-  color: #FFF;
 }
-
-#newGame {
-  display: inline;
-  float: left;
-  width: 7.2%;
-  height: 100%;
-  margin-top: 2%;
-}
-.container {
-  height: 90%;
-  border: 15px solid black;
-  border-bottom-left-radius: 300px;
-  border-bottom-right-radius: 300px;
-  background: #102010;
-  color: #FFF;
-}
-.col-md-offset-6 {
-  position: relative;
-  top: -7.8%;
-}
-#playingArea div,
-#start{
-  margin: auto;
-}
-#title{
-  text-align: center;
-  margin-top: .5%;
-  margin-bottom: .25%;
-}
-#score-message{
-  margin: auto;
-  color: red;
-  font-weight: bold;
-  height: 50px;
+.title {
   width: 50%;
-}
-#score-message h3{
   margin: auto;
+}
+.title h1{
   text-align: center;
+  font-size: 3em;
 }
-#playerHand .cardArea,
-#dealerHand .cardArea{
-  width: 40%;
-  height: 100px;
+.table {
+  width: 75%;
+  height: 500px;
+  margin: 0px auto;
+  border: 10px solid #000;
+  border-bottom-right-radius: 300px;
+  border-bottom-left-radius: 300px;
+  clear: left;
 }
-img{
-  width: 18%;
-  height: 100%;
+#newGame {
+  width: 75px;
+  margin: 5px;
+  border-radius: 5px;
 }
-#controls {
-  margin: 0 auto;
-  padding: 0;
-  width: 12.5%;
-  height: 10%;
+#score-message {
+  width: 25%;
+  margin: auto;
 }
-#controls td {
-  width: 33.3333%;
+#score-message h3 {
+  text-align: center;
+  color: #ff5500;
+  text-shadow: 1px 2px 1px #440000;
+  position: absolute;
+  visibility: inherit;
 }
-button{
-  border-radius: 50px;
-  height: 100%;
-  width: 100%;
-  background: #FF0000;
+#playingArea {
+  width: 75%;
+  height: 250px;
+  position: relative;
+  top: 100px;
+  margin: auto;
 }
-
-/*Media Queries*/
-@screen and (max-width: 1200px) {
-  
+.cardArea img {
+  width: 75px;
+  height: 150px;
 }
