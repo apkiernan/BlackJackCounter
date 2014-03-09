@@ -11,6 +11,7 @@ body {
 }
 aside {
   float: left;
+  color: #fff;
 }
 .title {
   width: 50%;
@@ -58,7 +59,7 @@ aside {
 }
 .cardArea img {
   width: 75px;
-  height: 150px;
+  height: 125px;
 }
 .scoreArea {
   float: left;
@@ -73,4 +74,8 @@ aside {
   position: relative;
   left: 50px;
   z-index: -10000;
+}
+#controls {
+  width: 100px;
+  margin: auto;
 }

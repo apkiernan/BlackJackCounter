@@ -268,7 +268,7 @@ $("#deal").on("click", function () {
   playerHand = [];
   dealerHand = [];
   $( ".cardArea" ).empty();
-  $( "#score-message" ).empty();
+  $( "#score-message h3" ).css ( "visibility", "hidden" )
 
   //Deal 2 cards to player and 1 to dealer.
 
@@ -290,7 +290,7 @@ $("#deal").on("click", function () {
 
   if ( playerCount === 21 ) {
     endRound();
-    $("#score-message").append ( "<h3>BLACKJACK!!</h3>" );
+    $("#blackjack").css ( {"visibility": "visible"} );
   }
 });
 
@@ -305,7 +305,7 @@ $( "#hit" ).on( "click", function () {
   
   if(playerCount > 21){
     endRound();
-    $( "#score-message" ).append( "<h3>BUST!</h3>" );
+    $( "#bust" ).css( "visibility", "visible" );
   }
 });
 
@@ -322,7 +322,7 @@ $( "#stand" ).on("click", function () {
 
   if ( dealerCount > 21 ){
     endRound();
-    $( "#score-message" ).append( "<h3>Player Wins!</h3>" );
+    $( "#playerWin" ).css( "visibility", "visible" );
   } else { 
     compareScore( playerCount, dealerCount );
   }  
@@ -331,11 +331,11 @@ $( "#stand" ).on("click", function () {
 function compareScore ( playerCount, dealerCount ) {
   endRound();
   if( playerCount > dealerCount ){
-    $( "#score-message" ).append( "<h3>Player Wins!</h3>" );
+    $( "#playerWin" ).css( "visibility", "visible" );
   } else if( playerCount === dealerCount ){
-    $( "#score-message" ).append( "<h3>PUSH!</h3>" );
+    $( "#push" ).css( "visibility", "visible" );
   } else {
-    $( "#score-message" ).append( "<h3>Dealer Wins...womp womp</h3>" );
+    $( "#dealerWin" ).css( "visibility", "visible" );
   }
 }
 
