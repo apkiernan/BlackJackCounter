@@ -158,11 +158,16 @@ Player.prototype.hit = function () {
 		this.aceCounter ++;
 	};
 
+	// Update the card count
+	Count.updateCount( card );
 
+
+	// Add the card to player/dealer's hand
 	this.score += card.value;
 	this.hand.push( card );
 	this.updateBoard( card );
 
+	// Check if player/dealer busted hand
 	if ( this.scoreOver21() ) {
 
 		// Check if player/dealer has an ace
@@ -175,6 +180,8 @@ Player.prototype.hit = function () {
 			// Update player/dealer score with change to Ace.
 			this.display.html( this.score );
 		} else {
+
+			// Check if player or dealer for appropriate game message.
 			if ( player === this ) {
 				Game.bust();
 			} else {
@@ -280,7 +287,28 @@ var Game = {
 		$( '#bust' ).css( 'visibility', 'visible' ); 
 	}
 
-}
+};
+
+var Count = (function  () {
+	var count = 0;
+
+	updateCount = function ( card ) {
+		if ( card.value < 7 ) {
+			return count++;
+		} else if ( card.value > 9 ) {
+			return count--;
+		}
+	};
+
+	getCount = function () {
+		return count;
+	};
+
+	return {
+		'updateCount': updateCount,
+		'getCount': getCount
+	};
+})();
 
 
 
@@ -301,5 +329,11 @@ $( document ).ready( function () {
 	$( '#stand' ).on( 'click', function () {
 		dealer.dealerTurn.call( dealer );
 		Game.compareScore ( player.score, dealer.score );  
+	});
+
+	$( '#countButton' ).on( 'click', function () {
+		var count = Count.getCount();
+		$( '#count' ).html( count )
+					 .slideToggle( count );
 	});
 });
