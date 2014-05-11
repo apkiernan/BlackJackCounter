@@ -1,268 +1,303 @@
-var shoe            = [],
-    playerHand      = [],
-    dealerHand      = [],
-    playerScoreBox = $( "#playerHand h4" ),
-    playerCardArea = $( "#playerHand .cardArea" ),
-    dealerScoreBox = $( "#dealerHand h4" ),
-    dealerCardArea = $( "#dealerHand .cardArea" ),
-    playerCount    = 0,
-    dealerCount    = 0,
-    count          = 0,
-    playerAceCounter = 0,
-    dealerAceCounter = 0;
+var Shoe = (function () {
 
-// Card Objects
-function Card (suit, value, face) {
-  this.suit = suit;
-  this.value = value;
-  this.face = "<img src=\"./assets/Playing_Cards/" + face + ".svg\"></img>";
-}
+	// All cards, deck and shoe are private 
+	// and hidden from player to prohibit cheating
+	// via the console.
 
-function Ace (suit, value, face) {
-  this.isAce = true;
-  this.suit = suit;
-  this.value = value;
-  this.face = "<img src=\"./assets/Playing_Cards/" + face + ".svg\"></img>";
-}
 
-//Hearts Suit
-var acehearts = new Ace( "hearts", 11, "AH");
-var twohearts = new Card( "hearts", 2, "2H");
-var threehearts = new Card( "hearts", 3, "3H");
-var fourhearts = new Card( "hearts", 4, "4H");
-var fivehearts = new Card( "hearts", 5, "5H");
-var sixhearts = new Card( "hearts", 6, "6H");
-var sevenhearts = new Card( "hearts", 7, "7H");
-var eighthearts = new Card( "hearts", 8, "8H");
-var ninehearts = new Card( "hearts", 9, "9H");
-var tenhearts = new Card( "hearts", 10, "10H");
-var jackhearts = new Card( "hearts", 10, "JH");
-var queenhearts = new Card( "hearts", 10, "QH");
-var kinghearts = new Card( "hearts", 10, "KH");
+	//Card Contructors
+	var Card = function (suit, value, face) {
+	  this.suit = suit;
+	  this.value = value;
+	  this.face = "<img src=\"./assets/Playing_Cards/" + face + ".svg\"></img>";
+	},
 
-//Clubs Suit
-var aceclubs = new Ace( "clubs", 11, "AC");
-var twoclubs = new Card( "clubs", 2, "2C");
-var threeclubs = new Card( "clubs", 3, "3C");
-var fourclubs = new Card( "clubs", 4, "4C");
-var fiveclubs = new Card( "clubs", 5, "5C");
-var sixclubs = new Card( "clubs", 6, "6C");
-var sevenclubs = new Card( "clubs", 7, "7C");
-var eightclubs = new Card( "clubs", 8, "8C");
-var nineclubs = new Card( "clubs", 9, "9C");
-var tenclubs = new Card( "clubs", 10, "10C");
-var jackclubs = new Card( "clubs", 10, "JC");
-var queenclubs = new Card( "clubs", 10, "QC");
-var kingclubs = new Card( "clubs", 10, "KC");
+	Ace = function (suit, value, face) {
+	  this.isAce = true;
+	  this.suit = suit;
+	  this.value = value;
+	  this.face = "<img src=\"./assets/Playing_Cards/" + face + ".svg\"></img>";
+	},
 
-//Diamonds Suit
-var acediamonds = new Ace( "diamonds", 11, "AD");
-var twodiamonds = new Card( "diamonds", 2, "2D");
-var threediamonds = new Card( "diamonds", 3, "3D");
-var fourdiamonds = new Card( "diamonds", 4, "4D");
-var fivediamonds = new Card( "diamonds", 5, "5D");
-var sixdiamonds = new Card( "diamonds", 6, "6D");
-var sevendiamonds = new Card( "diamonds", 7, "7D");
-var eightdiamonds = new Card( "diamonds", 8, "8D");
-var ninediamonds = new Card( "diamonds", 9, "9D");
-var tendiamonds = new Card( "diamonds", 10, "10D");
-var jackdiamonds = new Card( "diamonds", 10, "JD");
-var queendiamonds = new Card( "diamonds", 10, "QD");
-var kingdiamonds = new Card( "diamonds", 10, "KD");
+	//Card Objects
 
-//Spades Suit
-var acespades = new Ace( "spades", 11, "AS");
-var twospades = new Card( "spades", 2, "2S");
-var threespades = new Card( "spades", 3, "3S");
-var fourspades = new Card( "spades", 4, "4S");
-var fivespades = new Card( "spades", 5, "5S");
-var sixspades = new Card( "spades", 6, "6S");
-var sevenspades = new Card( "spades", 7, "7S");
-var eightspades = new Card( "spades", 8, "8S");
-var ninespades = new Card( "spades", 9, "9S");
-var tenspades = new Card( "spades", 10, "10S");
-var jackspades = new Card( "spades", 10, "JS");
-var queenspades = new Card( "spades", 10, "QS");
-var kingspades = new Card( "spades", 10, "KS");
+	//Hearts Suit
+	acehearts = new Ace( "hearts", 11, "AH"),
+	twohearts = new Card( "hearts", 2, "2H"),
+	threehearts = new Card( "hearts", 3, "3H"),
+	fourhearts = new Card( "hearts", 4, "4H"),
+	fivehearts = new Card( "hearts", 5, "5H"),
+	sixhearts = new Card( "hearts", 6, "6H"),
+	sevenhearts = new Card( "hearts", 7, "7H"),
+	eighthearts = new Card( "hearts", 8, "8H"),
+	ninehearts = new Card( "hearts", 9, "9H"),
+	tenhearts = new Card( "hearts", 10, "10H"),
+	jackhearts = new Card( "hearts", 10, "JH"),
+	queenhearts = new Card( "hearts", 10, "QH"),
+	kinghearts = new Card( "hearts", 10, "KH"),
 
-$("#newGame").on("click", function(){  
-  var deck = [
-              acehearts, aceclubs, acediamonds, acespades, twohearts, 
-              twoclubs, twodiamonds, twospades, threehearts, threeclubs, 
-              threediamonds, threespades, fourhearts, fourclubs, fourdiamonds, 
-              fourspades, fivehearts, fiveclubs, fivediamonds, fivespades, 
-              sixhearts, sixclubs, sixdiamonds, sixspades, sevenhearts, sevenclubs, 
-              sevendiamonds, sevenspades, eighthearts, eightclubs, eightdiamonds, 
-              eightspades, ninehearts, nineclubs, ninediamonds, ninespades, tenhearts, 
-              tenclubs, tendiamonds, tenspades, jackhearts, jackclubs, jackdiamonds, 
-              jackspades, queenhearts, queenclubs, queendiamonds, queenspades, kinghearts, 
-              kingclubs, kingdiamonds, kingspades
-              ],
-      numDecks = prompt("How many decks would you like to play with? ");
-  for(var i = 1; i <= numDecks; i++){
-    //Adds desired number of decks to the shoe
-    shoe = shoe.concat(deck);   
-  }
-  shuffle(shoe);
-  return shoe;
-}); 
+	//Clubs Suit
+	aceclubs = new Ace( "clubs", 11, "AC"),
+	twoclubs = new Card( "clubs", 2, "2C"),
+	threeclubs = new Card( "clubs", 3, "3C"),
+	fourclubs = new Card( "clubs", 4, "4C"),
+	fiveclubs = new Card( "clubs", 5, "5C"),
+	sixclubs = new Card( "clubs", 6, "6C"),
+	sevenclubs = new Card( "clubs", 7, "7C"),
+	eightclubs = new Card( "clubs", 8, "8C"),
+	nineclubs = new Card( "clubs", 9, "9C"),
+	tenclubs = new Card( "clubs", 10, "10C"),
+	jackclubs = new Card( "clubs", 10, "JC"),
+	queenclubs = new Card( "clubs", 10, "QC"),
+	kingclubs = new Card( "clubs", 10, "KC"),
 
-function shuffle(shoe){  
-  var m = shoe.length, t, i;
-  // While there remain elements to shuffle…
-  while (m) {
+	//Diamonds Suit
+	acediamonds = new Ace( "diamonds", 11, "AD"),
+	twodiamonds = new Card( "diamonds", 2, "2D"),
+	threediamonds = new Card( "diamonds", 3, "3D"),
+	fourdiamonds = new Card( "diamonds", 4, "4D"),
+	fivediamonds = new Card( "diamonds", 5, "5D"),
+	sixdiamonds = new Card( "diamonds", 6, "6D"),
+	sevendiamonds = new Card( "diamonds", 7, "7D"),
+	eightdiamonds = new Card( "diamonds", 8, "8D"),
+	ninediamonds = new Card( "diamonds", 9, "9D"),
+	tendiamonds = new Card( "diamonds", 10, "10D"),
+	jackdiamonds = new Card( "diamonds", 10, "JD"),
+	queendiamonds = new Card( "diamonds", 10, "QD"),
+	kingdiamonds = new Card( "diamonds", 10, "KD"),
 
-    // Pick a remaining element…
-    i = Math.floor(Math.random() * m--);
+	//Spades Suit
+	acespades = new Ace( "spades", 11, "AS"),
+	twospades = new Card( "spades", 2, "2S"),
+	threespades = new Card( "spades", 3, "3S"),
+	fourspades = new Card( "spades", 4, "4S"),
+	fivespades = new Card( "spades", 5, "5S"),
+	sixspades = new Card( "spades", 6, "6S"),
+	sevenspades = new Card( "spades", 7, "7S"),
+	eightspades = new Card( "spades", 8, "8S"),
+	ninespades = new Card( "spades", 9, "9S"),
+	tenspades = new Card( "spades", 10, "10S"),
+	jackspades = new Card( "spades", 10, "JS"),
+	queenspades = new Card( "spades", 10, "QS"),
+	kingspades = new Card( "spades", 10, "KS"),
 
-    // And swap it with the current element.
-    t = shoe[m];
-    shoe[m] = shoe[i];
-    shoe[i] = t;
-    }
-  return shoe;
-}
+	//Seed deck to build shoe from
+	deck = [
+    acehearts, aceclubs, acediamonds, acespades, twohearts, 
+    twoclubs, twodiamonds, twospades, threehearts, threeclubs, 
+    threediamonds, threespades, fourhearts, fourclubs, fourdiamonds, 
+    fourspades, fivehearts, fiveclubs, fivediamonds, fivespades, 
+    sixhearts, sixclubs, sixdiamonds, sixspades, sevenhearts, sevenclubs, 
+    sevendiamonds, sevenspades, eighthearts, eightclubs, eightdiamonds, 
+    eightspades, ninehearts, nineclubs, ninediamonds, ninespades, tenhearts, 
+    tenclubs, tendiamonds, tenspades, jackhearts, jackclubs, jackdiamonds, 
+    jackspades, queenhearts, queenclubs, queendiamonds, queenspades, kinghearts, 
+    kingclubs, kingdiamonds, kingspades
+  ],
 
-$("#deal").on("click", function () {
-  //Reset the players' hands from previous round.
+  	shoe = [],
 
-  newRound ();
-  playerHand = [];
-  dealerHand = [];
-  $( ".cardArea" ).empty();
-  $( "#score-message h3" ).css ( "visibility", "hidden" )
+	shuffle = function (  ) {
+		var m = shoe.length, t, i;
+	
+		// While there remain elements to shuffle…
+		while ( m ) {
 
-  //Deal 2 cards to player and 1 to dealer.
+			// Pick a remaining element…
+	   	i = Math.floor( Math.random() * m-- );
 
-  getCount();
-  hit( playerHand, playerAceCounter );
-  getCount();
-  hit( dealerHand, dealerAceCounter );
-  getCount();
-  hit( playerHand, playerAceCounter );
-  playerCount = playerHand[0].value + playerHand[1].value;
-  dealerCount = dealerHand[0].value;
-  playerCardArea.append ( playerHand[0].face );
-  playerCardArea.append ( playerHand[1].face );
-  dealerCardArea.append ( dealerHand[0].face );
-  playerScoreBox.text ( playerCount );
-  dealerScoreBox.text ( dealerCount );
-  
-  //Check for Blackjack
+	    // And swap it with the current element.
+	    t = shoe[m];
+	    shoe[m] = shoe[i];
+	    shoe[i] = t;
+		};
+	
+		return shoe;
+	},
 
-  if ( playerCount === 21 ) {
-    endRound();
-    $("#blackjack").css ( {"visibility": "visible"} );
-  };
+ 	buildShoe = function () {
+  		var numDecks = $( "select#numDecks option:selected" ).val();
 
-  if ( playerCount > 21 && playerAceCounter !== 0 ) {
-    playerCount -= 10;
-    playerAceCounter --;
-  }
-});
 
-$( "#hit" ).on( "click", function () {
-  getCount();
-  hit( playerHand, playerAceCounter );
-  playerCount += playerHand[ playerHand.length - 1 ].value;
-  playerScoreBox.text( playerCount );
-  playerCardArea.append( playerHand[ playerHand.length -1 ].face);
-  
-  //Check to see if player busts
-  
-  if( playerCount > 21 ){
-    if ( playerAceCounter !== 0 ) {
-      playerCount -= 10
-      playerAceCounter --;
-    } else {
-      endRound();
-      $( "#bust" ).css( "visibility", "visible" );
-    };
-  }
-});
+		//Add number of decks to the shoe
+  		for ( var i = 0; i < numDecks; i++ ) {
+  			shoe = shoe.concat( deck );
+  		};
 
-//Begins the dealer's turn
+  		shuffle ( shoe );
+  	},
 
-$( "#stand" ).on("click", function () {
-  do {
+  	getTopCard = function () {
+  		return shoe.shift();
+  	};
 
-    getCount();
-    hit( dealerHand, dealerAceCounter );
-    dealerCount += dealerHand[ dealerHand.length - 1 ].value;
-    dealerCardArea.append( dealerHand[ dealerHand.length -1 ].face );
-    dealerScoreBox.text( dealerCount );
+  	return {
+  		'buildShoe': buildShoe,
+  		'getTopCard': getTopCard
+  	};
 
-  } while ( dealerCount < 17 );
+})();
 
-  if( dealerCount > 21 ){
 
-    if ( dealerAceCounter !== 0 ) {
-
-      dealerCount -= 10
-      dealerAceCounter --;
-
-    } else {
-      endRound();
-      $( "#playerWin" ).css( "visibility", "visible" );
-
-    };
-  } else {
-    endRound();
-    compareScore( playerCount, dealerCount );
-  }
-
-});
-
-function compareScore ( playerCount, dealerCount ) {
-  endRound();
-  if( playerCount > dealerCount ){
-    $( "#playerWin" ).css( "visibility", "visible" );
-  } else if( playerCount === dealerCount ){
-    $( "#push" ).css( "visibility", "visible" );
-  } else {
-    $( "#dealerWin" ).css( "visibility", "visible" );
-  }
-}
-
-//Removes Hit/Stand buttons each round.
-
-function endRound(){
-  $("#hit").hide();
-  $("#stand").hide();
-}
-
-//Adds Hit/Stand buttons each round.
-
-function newRound(){
-  $("#hit").show();
-  $("#stand").show();
-}
-
-function getCount () {
-  var topCard = shoe[0];
-  if ( topCard.value > 9 ) {
-    count -- ;
-  } else if ( topCard.value < 7 ) {
-    count ++ ;
-  } else {
-    return count;
-  }
-  return count;
+//Player Objects and Methods
+var Player = function ( display, cardArea ) {
+	this.hand = [];
+	this.score = 0;
+	this.aceCounter = 0;
+	this.display = display;
+	this.cardArea = cardArea;
 };
 
-function hit ( hand, counter ) {
-  var topCard = shoe.shift();
-  if ( topCard.isAce ) { 
-    counter ++
-  };
+Player.prototype.hit = function () {
+	var card = Shoe.getTopCard();
 
-  hand.push( topCard );
+	// Ace's are 11 unless they put the player/dealer over 21, 
+	// then they are worth 1.
+	// This keeps track of if the player is holding an ace.
+	if ( card.isAce ) {
+		this.aceCounter ++;
+	};
+
+
+	this.score += card.value;
+	this.hand.push( card );
+	this.updateBoard( card );
+
+	if ( this.scoreOver21() ) {
+
+		// Check if player/dealer has an ace
+		if ( this.aceCounter ) {
+
+			// Effectively changes the Ace to 1, and removes it from the counter
+			this.score -= 10;
+			this.aceCounter--;
+			this.display.html( this.score );
+		} else {
+			if ( this === 'player' ) {
+				Game.bust();
+			} else {
+				Game.playerWins();
+			}
+			
+		};
+	}; 
+};
+
+Player.prototype.updateBoard = function ( card ) {
+	this.display.html( this.score );
+	this.cardArea.append( card.face );
+};
+
+Player.prototype.scoreOver21 = function () {
+	return this.score > 21;
+}
+
+// Resets everything for the next round
+Player.prototype.resetHand = function () {
+	this.hand = [];
+	this.score = 0;
+	this.aceCounter = 0;
+	this.display.empty();
+	this.cardArea.empty();
+}
+
+var player = new Player ( $('#playerHand h4' ), $('#playerHand .cardArea' ) );
+var dealer = new Player ( $('#dealerHand h4' ), $('#dealerHand .cardArea' ) );
+
+// Dealer has predefined moves and must hit until 
+// score is at or over 17.
+// ***Possible room for other options based on BJ rules.***
+dealer.dealerTurn = function () {
+	do {
+		this.hit();
+	} while ( this.score < 17 );
+};
+
+
+var Game = {
+
+	dealCards: function () {
+		player.hit();
+		dealer.hit();
+		player.hit();
+
+		Game.isBlackJack();
+	},
+
+	endRound: function () {
+		$( '#hit' ).hide();
+		$( '#stand' ).hide();
+	},
+
+	newRound: function () {
+		player.resetHand();
+		dealer.resetHand();
+		$( '#hit' ).show();
+		$( '#stand' ).show();
+		$( '#score-message h3').css( 'visibility', 'hidden' );
+	},
+
+	compareScore: function ( player, dealer ) {
+		if ( player > 21 || dealer > 21 ) {
+			return;
+		}
+
+		if ( player > dealer ) {
+			Game.playerWins();
+		} else if ( player < dealer ) {
+			Game.playerLoses();
+		} else {
+			Game.draw();
+		}
+	},
+ 
+	playerLoses: function () {
+		Game.endRound();
+		$( '#dealerWin' ).css( 'visibility', 'visible' ); 
+	},
+
+	playerWins: function () {
+		Game.endRound();
+		$( '#playerWin' ).css( 'visibility', 'visible' ); 
+	},
+
+	draw: function () {
+		Game.endRound();
+		$( '#push' ).css( 'visibility', 'visible' ); 
+	},
+
+	isBlackJack: function ( score ) {
+		if ( score === 21 ) {
+			Game.endRound();
+			$( '#blackjack' ).css( 'visibility', 'visible' ); 
+		}
+	},
+
+	bust: function () {
+		Game.endRound();
+		$( '#bust' ).css( 'visibility', 'visible' ); 
+	}
 
 }
 
-$( "#countButton" ).on('click', function () {
-  $( "#count" ).text( count );
-  $( "#count" ).slideToggle ( 500, function () {
-    $( this ).css( "z-index", "10000" );
-  });
+
+
+$( document ).ready( function () {
+
+	$( '#newGame' ).on( 'click', Shoe.buildShoe );
+	
+	$( '#deal' ).on( 'click', function () {
+		Game.newRound();
+		Game.dealCards(); 
+		Game.isBlackJack( player.score );
+	});
+	
+	$( '#hit' ).on( 'click', function () {
+		player.hit.call( player );
+	});
+
+	$( '#stand' ).on( 'click', function () {
+		dealer.dealerTurn.call( dealer );
+		Game.compareScore ( player.score, dealer.score );  
+	});
 });
