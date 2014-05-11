@@ -175,7 +175,7 @@ Player.prototype.hit = function () {
 			// Update player/dealer score with change to Ace.
 			this.display.html( this.score );
 		} else {
-			if ( this === player ) {
+			if ( player === this ) {
 				Game.bust();
 			} else {
 				Game.playerWins();
