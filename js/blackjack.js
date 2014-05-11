@@ -171,9 +171,11 @@ Player.prototype.hit = function () {
 			// Effectively changes the Ace to 1, and removes it from the counter
 			this.score -= 10;
 			this.aceCounter--;
+
+			// Update player/dealer score with change to Ace.
 			this.display.html( this.score );
 		} else {
-			if ( this === 'player' ) {
+			if ( this === player ) {
 				Game.bust();
 			} else {
 				Game.playerWins();
