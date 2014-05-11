@@ -7,7 +7,9 @@ var shoe            = [],
     dealerCardArea = $( "#dealerHand .cardArea" ),
     playerCount    = 0,
     dealerCount    = 0,
-    count          = 0;
+    count          = 0,
+    playerAceCounter = 0,
+    dealerAceCounter = 0;
 
 // Card Objects
 function Card (suit, value, face) {
@@ -133,11 +135,11 @@ $("#deal").on("click", function () {
   //Deal 2 cards to player and 1 to dealer.
 
   getCount();
-  playerHand.push( shoe.shift() );
+  hit( playerHand, playerAceCounter );
   getCount();
-  dealerHand.push( shoe.shift() );
+  hit( dealerHand, dealerAceCounter );
   getCount();
-  playerHand.push( shoe.shift() );
+  hit( playerHand, playerAceCounter );
   playerCount = playerHand[0].value + playerHand[1].value;
   dealerCount = dealerHand[0].value;
   playerCardArea.append ( playerHand[0].face );
@@ -151,21 +153,31 @@ $("#deal").on("click", function () {
   if ( playerCount === 21 ) {
     endRound();
     $("#blackjack").css ( {"visibility": "visible"} );
+  };
+
+  if ( playerCount > 21 && playerAceCounter !== 0 ) {
+    playerCount -= 10;
+    playerAceCounter --;
   }
 });
 
 $( "#hit" ).on( "click", function () {
   getCount();
-  playerHand.push( shoe.shift() );
-  playerCount += playerHand[playerHand.length - 1].value;
+  hit( playerHand, playerAceCounter );
+  playerCount += playerHand[ playerHand.length - 1 ].value;
   playerScoreBox.text( playerCount );
   playerCardArea.append( playerHand[ playerHand.length -1 ].face);
   
   //Check to see if player busts
   
-  if(playerCount > 21){
-    endRound();
-    $( "#bust" ).css( "visibility", "visible" );
+  if( playerCount > 21 ){
+    if ( playerAceCounter !== 0 ) {
+      playerCount -= 10
+      playerAceCounter --;
+    } else {
+      endRound();
+      $( "#bust" ).css( "visibility", "visible" );
+    };
   }
 });
 
@@ -173,19 +185,32 @@ $( "#hit" ).on( "click", function () {
 
 $( "#stand" ).on("click", function () {
   do {
+
     getCount();
-    dealerHand.push( shoe.shift() );
+    hit( dealerHand, dealerAceCounter );
     dealerCount += dealerHand[ dealerHand.length - 1 ].value;
     dealerCardArea.append( dealerHand[ dealerHand.length -1 ].face );
     dealerScoreBox.text( dealerCount );
+
   } while ( dealerCount < 17 );
 
-  if ( dealerCount > 21 ){
+  if( dealerCount > 21 ){
+
+    if ( dealerAceCounter !== 0 ) {
+
+      dealerCount -= 10
+      dealerAceCounter --;
+
+    } else {
+      endRound();
+      $( "#playerWin" ).css( "visibility", "visible" );
+
+    };
+  } else {
     endRound();
-    $( "#playerWin" ).css( "visibility", "visible" );
-  } else { 
     compareScore( playerCount, dealerCount );
-  }  
+  }
+
 });
 
 function compareScore ( playerCount, dealerCount ) {
@@ -213,22 +238,6 @@ function newRound(){
   $("#stand").show();
 }
 
-var hasAce = function ( hand ) {
-  for( var i=0; i < hand.length; i++ ) {
-    if( hand[i].isAce ){
-      var ace = hand[i];
-      return ace;
-    }
-  }
-  return false;
-};
-
-function aceBreak ( score, ace ) {
-  if( score > 21 && hasAce ) {
-    ace.value = 1;
-  }
-}
-
 function getCount () {
   var topCard = shoe[0];
   if ( topCard.value > 9 ) {
@@ -239,6 +248,16 @@ function getCount () {
     return count;
   }
   return count;
+};
+
+function hit ( hand, counter ) {
+  var topCard = shoe.shift();
+  if ( topCard.isAce ) { 
+    counter ++
+  };
+
+  hand.push( topCard );
+
 }
 
 $( "#countButton" ).on('click', function () {

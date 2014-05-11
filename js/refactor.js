@@ -1,5 +1,10 @@
 var Shoe = (function () {
 
+	// All cards, deck and shoe are private 
+	// and hidden from player to prohibit cheating
+	// via the console.
+
+
 	//Card Contructors
 	var Card = function (suit, value, face) {
 	  this.suit = suit;
@@ -76,6 +81,7 @@ var Shoe = (function () {
 	queenspades = new Card( "spades", 10, "QS"),
 	kingspades = new Card( "spades", 10, "KS"),
 
+	//Seed deck to build shoe from
 	deck = [
     acehearts, aceclubs, acediamonds, acespades, twohearts, 
     twoclubs, twodiamonds, twospades, threehearts, threeclubs, 
@@ -89,7 +95,7 @@ var Shoe = (function () {
     kingclubs, kingdiamonds, kingspades
   ],
 
-  shoe = [],
+  	shoe = [],
 
 	shuffle = function (  ) {
 		var m = shoe.length, t, i;
@@ -109,31 +115,189 @@ var Shoe = (function () {
 		return shoe;
 	},
 
-  buildShoe = function () {
-  	var numDecks = $( "select#numDecks option:selected" ).val();
+ 	buildShoe = function () {
+  		var numDecks = $( "select#numDecks option:selected" ).val();
 
 
 		//Add number of decks to the shoe
-  	for ( var i = 0; i < numDecks; i++ ) {
-  		shoe = shoe.concat( deck );
+  		for ( var i = 0; i < numDecks; i++ ) {
+  			shoe = shoe.concat( deck );
+  		};
+
+  		shuffle ( shoe );
+  	},
+
+  	getTopCard = function () {
+  		return shoe.shift();
   	};
 
-  	shuffle ( shoe );
-  },
-
-  getTopCard = function () {
-  	return shoe.shift();
-  };
-
-  return {
-  	'buildShoe': buildShoe,
-  	'getTopCard': getTopCard
-  };
+  	return {
+  		'buildShoe': buildShoe,
+  		'getTopCard': getTopCard
+  	};
 
 })();
 
-$( document ).ready( function () {
-	var start = $( '#newGame' );
-	start.on( 'click', Shoe.buildShoe );
 
+//Player Objects and Methods
+var Player = function ( display, cardArea ) {
+	this.hand = [];
+	this.score = 0;
+	this.aceCounter = 0;
+	this.display = display;
+	this.cardArea = cardArea;
+};
+
+Player.prototype.hit = function () {
+	var card = Shoe.getTopCard();
+
+	// Ace's are 11 unless they put the player/dealer over 21, 
+	// then they are worth 1.
+	// This keeps track of if the player is holding an ace.
+	if ( card.isAce ) {
+		this.aceCounter ++;
+	};
+
+
+	this.score += card.value;
+	this.hand.push( card );
+	this.updateBoard( card );
+
+	if ( this.scoreOver21() ) {
+
+		// Check if player/dealer has an ace
+		if ( this.aceCounter ) {
+
+			// Effectively changes the Ace to 1, and removes it from the counter
+			this.score -= 10;
+			this.aceCounter--;
+			this.display.html( this.score );
+		} else {
+			if ( this === 'player' ) {
+				Game.bust();
+			} else {
+				Game.playerWins();
+			}
+			
+		};
+	}; 
+};
+
+Player.prototype.updateBoard = function ( card ) {
+	this.display.html( this.score );
+	this.cardArea.append( card.face );
+};
+
+Player.prototype.scoreOver21 = function () {
+	return this.score > 21;
+}
+
+// Resets everything for the next round
+Player.prototype.resetHand = function () {
+	this.hand = [];
+	this.score = 0;
+	this.aceCounter = 0;
+	this.display.empty();
+	this.cardArea.empty();
+}
+
+var player = new Player ( $('#playerHand h4' ), $('#playerHand .cardArea' ) );
+var dealer = new Player ( $('#dealerHand h4' ), $('#dealerHand .cardArea' ) );
+
+// Dealer has predefined moves and must hit until 
+// score is at or over 17.
+// ***Possible room for other options based on BJ rules.***
+dealer.dealerTurn = function () {
+	do {
+		this.hit();
+	} while ( this.score < 17 );
+};
+
+
+var Game = {
+
+	dealCards: function () {
+		player.hit();
+		dealer.hit();
+		player.hit();
+
+		Game.isBlackJack();
+	},
+
+	endRound: function () {
+		$( '#hit' ).hide();
+		$( '#stand' ).hide();
+	},
+
+	newRound: function () {
+		player.resetHand();
+		dealer.resetHand();
+		$( '#hit' ).show();
+		$( '#stand' ).show();
+		$( '#score-message h3').css( 'visibility', 'hidden' );
+	},
+
+	compareScore: function ( player, dealer ) {
+		if ( player > 21 || dealer > 21 ) {
+			return;
+		}
+
+		if ( player > dealer ) {
+			Game.playerWins();
+		} else if ( player < dealer ) {
+			Game.playerLoses();
+		} else {
+			Game.draw();
+		}
+	},
+ 
+	playerLoses: function () {
+		Game.endRound();
+		$( '#dealerWin' ).css( 'visibility', 'visible' ); 
+	},
+
+	playerWins: function () {
+		Game.endRound();
+		$( '#playerWin' ).css( 'visibility', 'visible' ); 
+	},
+
+	draw: function () {
+		Game.endRound();
+		$( '#push' ).css( 'visibility', 'visible' ); 
+	},
+
+	isBlackJack: function ( score ) {
+		if ( score === 21 ) {
+			Game.endRound();
+			$( '#blackjack' ).css( 'visibility', 'visible' ); 
+		}
+	},
+
+	bust: function () {
+		Game.endRound();
+		$( '#bust' ).css( 'visibility', 'visible' ); 
+	}
+
+}
+
+
+
+$( document ).ready( function () {
+
+	$( '#newGame' ).on( 'click', Shoe.buildShoe );
+	
+	$( '#deal' ).on( 'click', function () {
+		Game.newRound();
+		Game.dealCards(); 
+		Game.isBlackJack( player.score );
+	});
+	
+	$( '#hit' ).on( 'click', function () {
+		player.hit.call( player );
+	});
+
+	$( '#stand' ).on( 'click', function () {
+		dealer.dealerTurn.call( dealer );
+		Game.compareScore ( player.score, dealer.score );  
+	});
 });
